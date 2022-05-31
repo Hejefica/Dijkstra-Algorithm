@@ -4,8 +4,8 @@ from Output import print_result
 from Output import print_graph
 
 Airports = ["MEX", "CUN", "GDL", "MTY", "TIJ", "SJD", "PVR", "MID", "BJX", "CUL", "HMO", "CUU", "CJS", "TGZ", "VER"] 
-StartNode = "GDL"
-TargetNode = "CUN"
+StartNode = "TIJ"
+TargetNode = "MID"
 
 init_graph = {}
 for node in Airports:
@@ -28,6 +28,7 @@ init_graph["CUL"]["SJD"] = 181
 init_graph["CUL"]["PVR"] = 316
 init_graph["CUL"]["GDL"] = 396
 init_graph["CUL"]["BJX"] = 462
+init_graph["MTY"]["BJX"] = 342
 init_graph["SJD"]["PVR"] = 334
 init_graph["PVR"]["GDL"] = 127
 init_graph["GDL"]["BJX"] = 123
@@ -46,5 +47,5 @@ init_graph["MID"]["CUN"] = 180
 Graph = Graph(Airports, init_graph)
 PreviousNodes, ShortestPath = DijkstraAlgorithm(Graph = Graph, StartNode = StartNode)
 
-print_result(PreviousNodes, ShortestPath, StartNode, TargetNode)
-print_graph(Airports)
+Path = print_result(PreviousNodes, ShortestPath, StartNode, TargetNode)
+print_graph(Airports, Path)
