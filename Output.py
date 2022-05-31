@@ -1,25 +1,26 @@
-import networkx as nx
+from ImgResize import image_resize
+from EdgeColor import EdgeColor
 import matplotlib.pyplot as plt
+import networkx as nx
 import pandas as pd
 import cv2
-from ImgResize import image_resize
 
 IATADictionary = {
     "MEX": "Benito Juarez Intl. Airport",
     "CUN": "Cancun Intl. Airport",
     "GDL": "Miguel Hidalgo y Costilla Intl. Airport",
-    "MTY": "General Mariano Escobedo Intl. Airport",    
-    "TIJ": "General Abelardo L. Rodriguez Intl. Airport",
+    "MTY": "Gral. Mariano Escobedo Intl. Airport",    
+    "TIJ": "Gral. Abelardo L. Rodriguez Intl. Airport",
     "SJD": "San Jose del Cabo Intl. Airport",
-    "PVR": "Licenciado Gustavo Diaz Ordaz Intl. Airport",
+    "PVR": "Lic. Gustavo Diaz Ordaz Intl. Airport",
     "MID": "Manuel Crescencio Rejon Intl. Airport",    
     "BJX": "Del Bajio Intl. Airport",     
     "CUL": "Bachigualato Intl. Airport",    
-    "HMO": "General Ignacio Pesqueira Garcia Intl. Airport",
-    "CUU": "General Roberto Fierro Villalobos Intl. Airport",
+    "HMO": "Gral. Ignacio Pesqueira Garcia Intl. Airport",
+    "CUU": "Gral. Roberto Fierro Villalobos Intl. Airport",
     "CJS": "Abraham Gonzalez Intl. Airport",
     "TGZ": "Angel Albino Corzo Intl. Airport",    
-    "VER": "General Heriberto Jara Intl. Airport", 
+    "VER": "Gral. Heriberto Jara Intl. Airport", 
 }
 
 def print_result(PreviousNodes, ShortestPath, StartNode, TargetNode):
@@ -39,17 +40,16 @@ def print_result(PreviousNodes, ShortestPath, StartNode, TargetNode):
 def print_graph(Airports, Path):
     Graph = nx.Graph()
     Graph.add_nodes_from(Airports)
-
-    Edges = pd.DataFrame({'from': ['TIJ', 'TIJ', 'TIJ', 'HMO', 'HMO', 'HMO', 'HMO', 'CJS', 'CJS', 'CUU', 'CUU', 'CUU', 'CUL', 'CUL', 'CUL', 'CUL', 'CUL', 'MTY', 'PVR', 'PVR', 'GDL', 'GDL', 'MEX', 'MEX', 'MEX', 'VER', 'VER', 'VER', 'TGZ', 'TGZ', 'MID', 'MID'], 
-                            'to': ['CJS', 'HMO', 'SJD', 'CJS', 'CUU', 'CUL', 'SJD', 'MTY', 'CUU', 'MTY', 'BJX', 'CUL', 'HMO', 'SJD', 'PVR', 'GDL', 'BJX', 'BJX', 'SJD', 'GDL', 'BJX', 'MEX', 'BJX', 'VER', 'MTY', 'MTY', 'MID', 'TGZ', 'MID', 'CUN', 'MTY', 'CUN']})
+                                #    0      1      2      3      4      5      6       7     8      9     10     11     12     13     14     15     16     17     18     19     20     21     22     23     24     25     26     27     28     29     30    
+    Edges = pd.DataFrame({'from': ['TIJ', 'TIJ', 'TIJ', 'HMO', 'HMO', 'HMO', 'HMO', 'CJS', 'CJS', 'CUU', 'CUU', 'CUU', 'CUL', 'CUL', 'CUL', 'CUL', 'MTY', 'PVR', 'PVR', 'GDL', 'GDL', 'MEX', 'MEX', 'MEX', 'VER', 'VER', 'VER', 'TGZ', 'TGZ', 'MID', 'MID'], 
+                            'to': ['CJS', 'HMO', 'SJD', 'CJS', 'CUU', 'CUL', 'SJD', 'MTY', 'CUU', 'MTY', 'BJX', 'CUL', 'SJD', 'PVR', 'GDL', 'BJX', 'BJX', 'SJD', 'GDL', 'BJX', 'MEX', 'BJX', 'VER', 'MTY', 'MTY', 'MID', 'TGZ', 'MID', 'CUN', 'MTY', 'CUN']})
 
     EdgeColors = ["blue" for x in range(31)]
-
-    """for n in Path:
-        if Path(n) == 'TIJ' and Path(n+1) == 'CJS' or Path(n+1) == 'TIJ' and Path(n) == 'CJS':
-            EdgeColors[1] = 'red'"""
-
     EdgeWidths = [1 for x in range(31)]
+
+    for p in range(len(Path)-1):
+        PathTempArray = [Path[p], Path[p+1]]
+        EdgeColor(PathTempArray, EdgeColors, EdgeWidths)           
 
     Graph = nx.from_pandas_edgelist(Edges, 'from', 'to', create_using = nx.Graph())
 
@@ -68,7 +68,6 @@ def print_graph(Airports, Path):
     ("BJX", "MEX") : 190, ("MEX", "MTY") : 444, ("MEX", "VER") : 190, ("VER", "MTY") : 523, ("VER", "MID") : 442, 
     ("VER", "TGZ") : 275, ("TGZ", "MID") : 374, ("TGZ", "CUN") : 507, ("MID", "MTY") : 742, ("MID", "CUN") : 180})
 
-    
     cv2.imshow("Mexico Intl. Airports", image_resize(cv2.imread("Map.jpg"), Height = 600))
     cv2.moveWindow('Mexico Intl. Airports', 900, 75)
     plt.show()

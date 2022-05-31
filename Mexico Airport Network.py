@@ -1,17 +1,17 @@
-from Graph import Graph
 from DijkstraAlgorithm import DijkstraAlgorithm
 from Output import print_result
 from Output import print_graph
+from Graph import Graph
 
 Airports = ["MEX", "CUN", "GDL", "MTY", "TIJ", "SJD", "PVR", "MID", "BJX", "CUL", "HMO", "CUU", "CJS", "TGZ", "VER"] 
-StartNode = "TIJ"
+StartNode = "BJX"
 TargetNode = "MID"
 
 init_graph = {}
 for node in Airports:
     init_graph[node] = {}
     
-init_graph["TIJ"]["CJS"] = 620
+init_graph["TIJ"]["CJS"] = 620 # 31 conections.
 init_graph["TIJ"]["HMO"] = 425
 init_graph["TIJ"]["SJD"] = 785
 init_graph["HMO"]["CJS"] = 327
@@ -23,7 +23,6 @@ init_graph["CJS"]["CUU"] = 205
 init_graph["CUU"]["MTY"] = 413
 init_graph["CUU"]["BJX"] = 603
 init_graph["CUU"]["CUL"] = 288
-init_graph["CUL"]["HMO"] = 372
 init_graph["CUL"]["SJD"] = 181
 init_graph["CUL"]["PVR"] = 316
 init_graph["CUL"]["GDL"] = 396
