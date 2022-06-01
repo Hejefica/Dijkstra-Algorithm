@@ -4,8 +4,8 @@ from Output import print_graph
 from Graph import Graph
 
 Airports = ["MEX", "CUN", "GDL", "MTY", "TIJ", "SJD", "PVR", "MID", "BJX", "CUL", "HMO", "CUU", "CJS", "TGZ", "VER"] 
-StartNode = "BJX"
-TargetNode = "MID"
+StartNode = "TIJ"
+TargetNode = "CUN"
 
 init_graph = {}
 for node in Airports:
