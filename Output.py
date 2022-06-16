@@ -37,7 +37,7 @@ def print_result(PreviousNodes, ShortestPath, StartNode, TargetNode):
     print("Route: "," > ".join(reversed(path)), " [{} miles].".format(ShortestPath[TargetNode]))
     return path
 
-def print_graph(Airports, Path):
+def print_graph(Airports, Path, init_graph):
     Graph = nx.Graph()
     Graph.add_nodes_from(Airports)
                                 #    0      1      2      3      4      5      6       7     8      9     10     11     12     13     14     15     16     17     18     19     20     21     22     23     24     25     26     27     28     29     30    
@@ -60,13 +60,39 @@ def print_graph(Airports, Path):
     nx.draw(Graph, pos = Positions, node_color = 'black', with_labels = True, font_size = 7, 
             font_color = "white", width = EdgeWidths, edge_color = EdgeColors)
 
-    nx.draw_networkx_edge_labels(Graph, pos = Positions, edge_labels = {("TIJ", "CJS") : 620, ("TIJ", "HMO") : 425, 
-    ("TIJ", "SJD") : 785, ("HMO", "CJS") : 327, ("HMO", "CUU") : 309, ("HMO", "CUL") : 372, ("HMO", "SJD") : 419, 
-    ("CJS", "MTY") : 558, ("CJS", "CUU") : 205, ("CUU", "MTY") : 413, ("CUU", "BJX") : 603, ("CUU", "CUL") : 288, 
-    ("CUL", "HMO") : 372, ("CUL", "SJD") : 181, ("CUL", "PVR") : 316, ("CUL", "GDL") : 396, ("CUL", "BJX") : 462, 
-    ("MTY", "BJX") : 342,("SJD", "PVR") : 334, ("PVR", "GDL") : 127, ("GDL", "BJX") : 123, ("GDL", "MEX") : 286, 
-    ("BJX", "MEX") : 190, ("MEX", "MTY") : 444, ("MEX", "VER") : 190, ("VER", "MTY") : 523, ("VER", "MID") : 442, 
-    ("VER", "TGZ") : 275, ("TGZ", "MID") : 374, ("TGZ", "CUN") : 507, ("MID", "MTY") : 742, ("MID", "CUN") : 180})
+    nx.draw_networkx_edge_labels(Graph, pos = Positions, edge_labels = {
+        ("TIJ", "CJS") : init_graph["TIJ"]["CJS"],
+        ("TIJ", "HMO") : init_graph["TIJ"]["HMO"], 
+        ("TIJ", "SJD") : init_graph["TIJ"]["SJD"],
+        ("HMO", "CJS") : init_graph["HMO"]["CJS"],
+        ("HMO", "CUU") : init_graph["HMO"]["CUU"],
+        ("HMO", "CUL") : init_graph["HMO"]["CUL"],
+        ("HMO", "SJD") : init_graph["HMO"]["SJD"], 
+        ("CJS", "MTY") : init_graph["CJS"]["MTY"],
+        ("CJS", "CUU") : init_graph["CJS"]["CUU"],
+        ("CUU", "MTY") : init_graph["CUU"]["MTY"],
+        ("CUU", "BJX") : init_graph["CUU"]["BJX"],
+        ("CUU", "CUL") : init_graph["CUU"]["CUL"], 
+        ("CUL", "HMO") : init_graph["CUL"]["HMO"],
+        ("CUL", "SJD") : init_graph["CUL"]["SJD"],
+        ("CUL", "PVR") : init_graph["CUL"]["PVR"],
+        ("CUL", "GDL") : init_graph["CUL"]["GDL"],
+        ("CUL", "BJX") : init_graph["CUL"]["BJX"], 
+        ("MTY", "BJX") : init_graph["MTY"]["BJX"],
+        ("SJD", "PVR") : init_graph["SJD"]["PVR"],
+        ("PVR", "GDL") : init_graph["PVR"]["GDL"],
+        ("GDL", "BJX") : init_graph["GDL"]["BJX"],
+        ("GDL", "MEX") : init_graph["GDL"]["MEX"], 
+        ("BJX", "MEX") : init_graph["BJX"]["MEX"],
+        ("MEX", "MTY") : init_graph["MEX"]["MTY"],
+        ("MEX", "VER") : init_graph["MEX"]["VER"],
+        ("VER", "MTY") : init_graph["VER"]["MTY"],
+        ("VER", "MID") : init_graph["VER"]["MID"], 
+        ("VER", "TGZ") : init_graph["VER"]["TGZ"],
+        ("TGZ", "MID") : init_graph["TGZ"]["MID"],
+        ("TGZ", "CUN") : init_graph["TGZ"]["CUN"],
+        ("MID", "MTY") : init_graph["MID"]["MTY"],
+        ("MID", "CUN") : init_graph["MID"]["CUN"]})
 
     cv2.imshow("Mexico Intl. Airports", image_resize(cv2.imread("Map.jpg"), Height = 600))
     cv2.moveWindow('Mexico Intl. Airports', 900, 75)
